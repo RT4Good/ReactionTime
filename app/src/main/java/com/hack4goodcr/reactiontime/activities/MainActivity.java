@@ -25,6 +25,8 @@ import fragments.balls_game_fragment;
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, MainFragment.OnDataPass {
     private FloatingActionButton fab;
+    private int roundsToPlay;
+    private int ballsToPlay;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,7 +47,7 @@ public class MainActivity extends AppCompatActivity
         Fragment fragment = new MainFragment();
 
         FragmentManager fragmentManager = getSupportFragmentManager();
-        fragmentManager.beginTransaction().replace(R.id.flContent, fragment).commit();
+        fragmentManager.beginTransaction().replace(R.id.flContent, fragment, "mainFragment").commit();
         navigationView.getMenu().getItem(0).setChecked(true);
         // Highlight the selected item, update the title, and close the drawer
         setTitle(getResources().getString(R.string.app_name));
@@ -54,24 +56,32 @@ public class MainActivity extends AppCompatActivity
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Bundle bundle = new Bundle();
+
+                bundle.putIntArray("rounds_balls", new int []{roundsToPlay, ballsToPlay});
+
                 Fragment newFragment = new balls_game_fragment();
                 android.support.v4.app.FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-
+                newFragment.setArguments(bundle);
 // Replace whatever is in the fragment_container view with this fragment,
 // and add the transaction to the back stack if needed
                 transaction.replace(R.id.flContent, newFragment);
                 transaction.addToBackStack(null);
 
+
+
 // Commit the transaction
                 transaction.commit();
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                fab.setVisibility(View.INVISIBLE);
+
             }
         });
     }
 
     @Override
     public void onDataPass(int rounds, int balls) {
+        roundsToPlay = rounds;
+        ballsToPlay = balls;
         Log.d("LOG","hello " + rounds + " " + balls);
     }
 
@@ -82,6 +92,13 @@ public class MainActivity extends AppCompatActivity
             drawer.closeDrawer(GravityCompat.START);
         } else {
             super.onBackPressed();
+            Log.d("LOG","backbutooon");
+            MainFragment myFragment = (MainFragment) getSupportFragmentManager().findFragmentByTag("mainFragment");
+            if (myFragment != null && myFragment.isVisible()) {
+                fab.setVisibility(View.VISIBLE);
+                // add your code here
+            }
+
         }
     }
 

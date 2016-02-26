@@ -11,4 +11,9 @@
     <string name="nav_drawer_instructions">Instrucciones</string>
     <string name="spinner_txt_balls">Número de bolas</string>
     <string name="spinner_txt_rounds">Número de rondas</string>
+    <string name="game_btn_txt">Empezar</string>
+    <string name="game_txt_remaining_balls">Cerebros restantes: </string>
+    <string name="action_settings">Ajustes</string>
+    <string name="hello_blank_fragment"></string>
+    <string name="game_txt_remaining_rounds">Rondas restantes:</string>
 </resources>
