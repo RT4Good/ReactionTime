@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">ReactionTime</string>
+    <string name="nav_drawer_ranking">Ranking</string>
+    <string name="nav_drawer_settings">Ajustes</string>
+    <string name="navigation_drawer_close"></string>
+    <string name="nav_drawer_games">Juegos</string>
+    <string name="nav_drawer_aboutus">Acerca de</string>
+    <string name="nav_drawer_historic">Histórico</string>
+    <string name="nav_drawer_subtitle">Otros</string>
+    <string name="nav_drawer_instructions">Instrucciones</string>
+    <string name="spinner_txt_balls">Número de bolas</string>
+    <string name="spinner_txt_rounds">Número de rondas</string>
+</resources>

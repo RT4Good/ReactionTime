@@ -7,8 +7,14 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.Spinner;
 
 import com.hack4goodcr.reactiontime.R;
+import com.hack4goodcr.reactiontime.*;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -18,11 +24,20 @@ import com.hack4goodcr.reactiontime.R;
  * Use the {@link MainFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
+
+
 public class MainFragment extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
+    private Spinner roundSpinner;
+    private Spinner ballSpinner;
+    private int rounds = 1;
+    private int balls = 1;
+    private View view;
+    private OnDataPass dataPasser;
+
 
     // TODO: Rename and change types of parameters
     private String mParam1;
@@ -64,20 +79,83 @@ public class MainFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+    if(view == null) {
+        view = inflater.inflate(
+                R.layout.fragment_main, container, false);
+
+        roundSpinner = (Spinner) view.findViewById(R.id.spinnerRounds);
+        ballSpinner = (Spinner) view.findViewById(R.id.spinnerBalls);
+        // Create an ArrayAdapter using the string array and a default spinner layout
+        List<Integer> roundList = new ArrayList<Integer>();
+        for (int i = 1; i <= 255; i++) {
+            roundList.add(i);
+        }
+        List<Integer> ballList = new ArrayList<Integer>();
+        for (int i = 1; i <= 9; i++) {
+            ballList.add(i);
+        }
+
+        passData(rounds, balls);
+
+        ArrayAdapter<Integer> roundsAdapter = new ArrayAdapter<Integer>(view.getContext(), android.R.layout.simple_spinner_item, roundList);
+
+
+        ArrayAdapter<Integer> ballsAdapter = new ArrayAdapter<Integer>(view.getContext(), android.R.layout.simple_spinner_item, ballList);
+
+        roundsAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        ballsAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+        roundSpinner.setAdapter(roundsAdapter);
+        ballSpinner.setAdapter(ballsAdapter);
+
+        roundSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                rounds = position + 1;
+                passData(rounds, balls);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
+        ballSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                balls = position + 1;
+                passData(rounds, balls);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_main, container, false);
+    }
+        return view;
     }
 
     // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {
         if (mListener != null) {
-            mListener.onFragmentInteraction(uri);
+
         }
     }
 
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
+        dataPasser = (OnDataPass) context;
+    /*    if (context instanceof OnFragmentInteractionListener) {
+            mListener = (OnFragmentInteractionListener) context;
+        } else {
+            throw new RuntimeException(context.toString()
+                    + " must implement OnFragmentInteractionListener");
+        }*/
     }
 
     @Override
@@ -85,6 +163,11 @@ public class MainFragment extends Fragment {
         super.onDetach();
         mListener = null;
     }
+
+    public void passData(int rounds, int balls) {
+        dataPasser.onDataPass(rounds, balls);
+    }
+
 
     /**
      * This interface must be implemented by activities that contain this
@@ -100,4 +183,20 @@ public class MainFragment extends Fragment {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
     }
+    public interface OnDataPass {
+        void onDataPass(int rounds, int balls);
+    }
+
+
+
+    /**
+     * This interface must be implemented by activities that contain this
+     * fragment to allow an interaction in this fragment to be communicated
+     * to the activity and potentially other fragments contained in that
+     * activity.
+     * <p>
+     * See the Android Training lesson <a href=
+     * "http://developer.android.com/training/basics/fragments/communicating.html"
+     * >Communicating with Other Fragments</a> for more information.
+     */
 }
