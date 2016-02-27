@@ -26,6 +26,7 @@ import com.hack4goodcr.reactiontime.R;
 
 import fragments.MainFragment;
 import fragments.balls_game_fragment;
+import fragments.historic;
 
 
 public class MainActivity extends AppCompatActivity
@@ -152,12 +153,21 @@ public class MainActivity extends AppCompatActivity
 
         if (id == R.id.nav_games) {
             fab.setVisibility(View.VISIBLE);
+            Fragment fragment = new MainFragment();
+
+            FragmentManager fragmentManager = getSupportFragmentManager();
+            fragmentManager.beginTransaction().replace(R.id.flContent, fragment, "historic").commit();
             // Handle the camera action
         } else if (id == R.id.nav_ranking) {
             fab.setVisibility(View.INVISIBLE);
 
         } else if (id == R.id.nav_historic) {
             fab.setVisibility(View.INVISIBLE);
+
+            Fragment fragment = new historic();
+
+            FragmentManager fragmentManager = getSupportFragmentManager();
+            fragmentManager.beginTransaction().replace(R.id.flContent, fragment, "historic").commit();
 
         } else if (id == R.id.nav_settings) {
             fab.setVisibility(View.INVISIBLE);

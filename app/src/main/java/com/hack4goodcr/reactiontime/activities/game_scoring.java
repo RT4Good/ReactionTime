@@ -39,7 +39,7 @@ public class game_scoring extends AppCompatActivity implements OnChartValueSelec
     protected BarChart mChart;
     private SeekBar mSeekBarX, mSeekBarY;
     private TextView tvX, tvY;
-    private final int itemcount = 12;
+    private final int itemcount = 10;
     private String score;
 
     @Override
@@ -123,7 +123,7 @@ public class game_scoring extends AppCompatActivity implements OnChartValueSelec
 
         // if more than 60 entries are displayed in the chart, no values will be
         // drawn
-        mChart.setMaxVisibleValueCount(60);
+        mChart.setMaxVisibleValueCount(10);
 
         // scaling can now only be done on x- and y-axis separately
         mChart.setPinchZoom(false);
@@ -168,11 +168,11 @@ public class game_scoring extends AppCompatActivity implements OnChartValueSelec
         // l.setCustom(ColorTemplate.VORDIPLOM_COLORS, new String[] { "abc",
         // "def", "ghj", "ikl", "mno" });
 
-        setData(12, 50);
+        setData(10, 50);
 
         // setting data
         mSeekBarY.setProgress(50);
-        mSeekBarX.setProgress(12);
+        mSeekBarX.setProgress(10);
 
         mSeekBarY.setOnSeekBarChangeListener(this);
         mSeekBarX.setOnSeekBarChangeListener(this);
@@ -199,7 +199,7 @@ public class game_scoring extends AppCompatActivity implements OnChartValueSelec
                 NavUtils.navigateUpFromSameTask(this);
                 return true;
             case R.id.action_send:
-                String shareText = getString(R.string.share1)+" "+ score + "y esta tu edad de acuerdo a tu tiempo de respuesta: "+ edad.getText().toString() + " años";
+                String shareText = getString(R.string.share1)+" "+ score + " y esta tu edad de acuerdo a tu tiempo de respuesta: "+ edad.getText().toString() + " años";
                 Intent sharingIntent = new Intent(android.content.Intent.ACTION_SEND);
                 sharingIntent.setType("text/plain");
                 sharingIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, getString(R.string.extra_subject));
@@ -225,20 +225,22 @@ public class game_scoring extends AppCompatActivity implements OnChartValueSelec
 
     private void setData(int count, float range) {
 
-        String[] mMonths = new String[]{"a","a","a","a","a","a","a","a","a","a","a","a"};
+        String[] mMonths = new String[]{"15","22","25","27","30","35","45","50","55","60"};
 
         ArrayList<String> xVals = new ArrayList<String>();
         for (int i = 0; i < count; i++) {
 
-            xVals.add(mMonths[i % 12]);
+            xVals.add(mMonths[i % 10]);
         }
 
         ArrayList<BarEntry> yVals1 = new ArrayList<BarEntry>();
 
+        float vals [] = new float[]{1,2,3,4,5,6,7,8,9,10 };
+
         for (int i = 0; i < count; i++) {
             float mult = (range + 1);
-            float val = (float) (Math.random() * mult);
-            yVals1.add(new BarEntry(val, i));
+
+            yVals1.add(new BarEntry(vals[i], i));
         }
 
         BarDataSet set1 = new BarDataSet(yVals1, "DataSet");

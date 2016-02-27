@@ -18,8 +18,6 @@
     <string name="spinner_txt_rounds">Number of rounds</string>
     <string name="spinner_txt_balls">Number of balls</string>
     <string name="game_btn_txt">Start</string>
-    <string name="game_txt_remaining_balls">Remaining brains:</string>
-    <string name="game_txt_remaining_rounds">Remaining rounds:</string>
     <string name="gplay_error">Error</string>
     <string name="action_share">Share</string>
     <string name="share1">This is your score:</string>
