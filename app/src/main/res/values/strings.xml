@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">ReactionTime</string>
 
-    <string name="navigation_drawer_open">Open navigation drawer</string>
+
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
     <string name="action_settings">Settings</string>
@@ -20,4 +20,9 @@
     <string name="game_btn_txt">Start</string>
     <string name="game_txt_remaining_balls">Remaining brains:</string>
     <string name="game_txt_remaining_rounds">Remaining rounds:</string>
+    <string name="gplay_error">Error</string>
+    <string name="action_share">Share</string>
+    <string name="share1">This is your score:</string>
+    <string name="extra_subject">Reaction Time. Score</string>
+
 </resources>
